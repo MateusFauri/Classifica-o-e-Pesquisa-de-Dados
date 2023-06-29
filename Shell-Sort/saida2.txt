@@ -1,0 +1,15 @@
+SHELL, 100, 0.377178, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+KNUTH, 100, 0.260353, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+CIURA, 100, 0.283957, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+SHELL, 1000, 6.392479, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+KNUTH, 1000, 3.642082, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+CIURA, 1000, 3.657579, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+SHELL, 10000, 145.263433, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+KNUTH, 10000, 60.267448, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+CIURA, 10000, 54.036617, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+SHELL, 100000, 4606.554985, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+KNUTH, 100000, 1091.154814, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+CIURA, 100000, 902.554274, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+SHELL, 1000000, 147553.009510, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+KNUTH, 1000000, 16216.893673, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+CIURA, 1000000, 10346.060514, AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx

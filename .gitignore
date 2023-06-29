@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Result Files Quick sort
+Quick-Sort/*.txt
+
+# Files Radix sort
+
+# Files Shell sort
+Shell-Sort/README.txt
+Shell-Sort/*.JPEG
