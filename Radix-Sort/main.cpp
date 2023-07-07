@@ -14,23 +14,19 @@ void tokenize(std::string const &str, const char* delim, std::vector<std::string
         token = strtok(nullptr, delim); 
     } 
 } 
- 
 
 int main(int argc, char *argv[])
 {
     std::string linha;
     std::vector<std::string> vetor;
-    
+
     getline(std::cin, linha);
     tokenize(linha, " ", vetor);
 
-    //print_vetor(vetor);
+    MSD::sort(vetor);
 
-    vetor = radixSortMSD(vetor);
-
-    std::cout << "Colocando o vetor acabado: ";
     print_vetor(vetor);
-    
+
     return 0;
 }
 
