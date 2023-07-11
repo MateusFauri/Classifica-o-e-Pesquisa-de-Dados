@@ -13,15 +13,18 @@ private:
     static const int R;
     static const int CUTOFF;
 
-    static int charAt(const std::string& s, int d);
-    static void sort(std::vector<std::string>& a, int lo, int hi, int d, std::vector<std::string>& aux);
-    static void insertion(std::vector<std::string>& a, int lo, int hi, int d);
-    static bool less(const std::string& v, const std::string& w, int d);
+    int charAt(const std::string& word, int d);
+    void sort(std::vector<std::string>& word, int low, int high, int d, std::vector<std::string>& aux);
+    void insertion(std::vector<std::string>& word, int low, int high, int d); 
+    bool less(const std::string& word1, const std::string& word2, int d) ;
+
 
 public:
-    static std::map<std::string, int> countOccurrences(std::vector<std::string>& a);
-    static std::map<std::string, int> top1000Occurrences(std::map<std::string, int>& ocorrencias);
-    static void sort(std::vector<std::string>& a);
+    static std::map<std::string, int> top1000Occurrences(std::map<std::string, int>& ocorrencias) ;
+    static std::map<std::string, int> countOccurrences(std::vector<std::string>& vector);
+
+    void sort(std::vector<std::string>& vector); 
+
 };
 
 void print_vetor(std::vector<std::string>& vetor);

@@ -11,64 +11,68 @@ const int MSD::BITS_PER_INT = 32;
 const int MSD::R = 256;
 const int MSD::CUTOFF = 15;
 
-int MSD::charAt(const std::string& s, int d) {
-    if (d == s.length()) return -1;
-    return s[d];
+int MSD::charAt(const std::string& word, int d) 
+{
+    if (d == word.length()) 
+        return -1;
+    return word[d];
 }
 
-void MSD::sort(std::vector<std::string>& a, int lo, int hi, int d, std::vector<std::string>& aux)
+void MSD::sort(std::vector<std::string>& word, int low, int high, int d, std::vector<std::string>& aux)
 {
-    if (hi <= lo + CUTOFF) {
-        insertion(a, lo, hi, d);
+    if (high <= low + CUTOFF) {
+        insertion(word, low, high, d);
         return;
     }
 
     std::vector<int> count(R + 2, 0);
-    for (int i = lo; i <= hi; i++) {
-        int c = charAt(a[i], d);
+    for (int i = low; i <= high; i++) {
+        int c = charAt(word[i], d);
         count[c + 2]++;
     }
 
     for (int r = 0; r < R + 1; r++)
         count[r + 1] += count[r];
 
-    for (int i = lo; i <= hi; i++) {
-        int c = charAt(a[i], d);
-        aux[count[c + 1]++] = a[i];
+    for (int i = low; i <= high; i++) {
+        int c = charAt(word[i], d);
+        aux[count[c + 1]++] = word[i];
     }
 
-    for (int i = lo; i <= hi; i++)
-        a[i] = aux[i - lo];
+    for (int i = low; i <= high; i++)
+        word[i] = aux[i - low];
 
     for (int r = 0; r < R; r++)
-        sort(a, lo + count[r], lo + count[r + 1] - 1, d + 1, aux);
+        sort(word, low + count[r], low + count[r + 1] - 1, d + 1, aux);
 }
 
-void MSD::insertion(std::vector<std::string>& a, int lo, int hi, int d) 
+void MSD::insertion(std::vector<std::string>& word, int low, int high, int d) 
 {
-    for (int i = lo; i <= hi; i++)
-        for (int j = i; j > lo && less(a[j], a[j - 1], d); j--)
-            std::swap(a[j], a[j - 1]);
+    for (int i = low; i <= high; i++)
+        for (int j = i; j > low && less(word[j], word[j - 1], d); j--)
+            std::swap(word[j], word[j - 1]);
 }
 
-bool MSD::less(const std::string& v, const std::string& w, int d) 
+bool MSD::less(const std::string& word1, const std::string& word2, int d) 
 {
-    for (int i = d; i < std::min(v.length(), w.length()); i++) {
-        if (v[i] < w[i]) return true;
-        if (v[i] > w[i]) return false;
+    for (int i = d; i < std::min(word1.length(), word2.length()); i++) {
+        if (word1[i] < word2[i]) return true;
+        if (word1[i] > word2[i]) return false;
     }
-    return v.length() < w.length();
+    return word1.length() < word2.length();
 }
 
-void MSD::sort(std::vector<std::string>& a) {
-    int n = a.size();
-    std::vector<std::string> aux(n);
-    sort(a, 0, n - 1, 0, aux);
+void MSD::sort(std::vector<std::string>& vector) 
+{
+    int size = vector.size();
+    std::vector<std::string> aux(size);
+    sort(vector, 0, size - 1, 0, aux);
 }
 
-std::map<std::string, int> MSD::countOccurrences(std::vector<std::string>& a) {
+std::map<std::string, int> MSD::countOccurrences(std::vector<std::string>& vector) 
+{
     std::map<std::string, int> occurrences;
-    for (const std::string& word : a) {
+    for (const std::string& word : vector) {
         occurrences[word]++;
     }
     return occurrences;
@@ -78,6 +82,7 @@ std::map<std::string, int> MSD::top1000Occurrences(std::map<std::string, int>& o
 {
     int k = 1000;
     std::map<int, std::string, std::greater<int>> topK;
+    
     for (const auto& pair : ocorrencias) {
         topK[pair.second] = pair.first;
         if (topK.size() > k) {
