@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <algorithm>
 
 class MSD {
 private:
@@ -13,17 +14,16 @@ private:
     static const int R;
     static const int CUTOFF;
 
-    int charAt(const std::string& word, int d);
-    void sort(std::vector<std::string>& word, int low, int high, int d, std::vector<std::string>& aux);
-    void insertion(std::vector<std::string>& word, int low, int high, int d); 
-    bool less(const std::string& word1, const std::string& word2, int d) ;
+    static int charAt(const std::string& word, int d);
+    static void sort(std::vector<std::string>& word, int low, int high, int d, std::vector<std::string>& aux);
+    static void insertion(std::vector<std::string>& word, int low, int high, int d); 
+    static bool less(const std::string& word1, const std::string& word2, int d) ;
 
 
 public:
     static std::map<std::string, int> top1000Occurrences(std::map<std::string, int>& ocorrencias) ;
     static std::map<std::string, int> countOccurrences(std::vector<std::string>& vector);
-
-    void sort(std::vector<std::string>& vector); 
+    static void sort(std::vector<std::string>& vector); 
 
 };
 
