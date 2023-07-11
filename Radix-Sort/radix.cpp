@@ -3,9 +3,7 @@
 void print_vetor(std::vector<std::string>& vetor)
 {
     for(auto &string : vetor)
-        std::cout << string << " " ;
-    
-    std::cout << std::endl;
+        std::cout << string << std::endl;
 }
 
 const int MSD::BITS_PER_BYTE = 8;
@@ -66,5 +64,32 @@ void MSD::sort(std::vector<std::string>& a) {
     int n = a.size();
     std::vector<std::string> aux(n);
     sort(a, 0, n - 1, 0, aux);
+}
+
+std::map<std::string, int> MSD::countOccurrences(std::vector<std::string>& a) {
+    std::map<std::string, int> occurrences;
+    for (const std::string& word : a) {
+        occurrences[word]++;
+    }
+    return occurrences;
+}
+
+std::map<std::string, int> MSD::top1000Occurrences(std::map<std::string, int>& ocorrencias) 
+{
+    int k = 1000;
+    std::map<int, std::string, std::greater<int>> topK;
+    for (const auto& pair : ocorrencias) {
+        topK[pair.second] = pair.first;
+        if (topK.size() > k) {
+            topK.erase(std::prev(topK.end()));
+        }
+    }
+
+    std::map<std::string, int> topOccurrences;
+    for (const auto& pair : topK) {
+        topOccurrences[pair.second] = pair.first;
+    }
+
+    return topOccurrences;
 }
 

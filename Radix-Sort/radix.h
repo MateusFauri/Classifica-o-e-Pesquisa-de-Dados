@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include <string>
 
 class MSD {
@@ -18,6 +19,8 @@ private:
     static bool less(const std::string& v, const std::string& w, int d);
 
 public:
+    static std::map<std::string, int> countOccurrences(std::vector<std::string>& a);
+    static std::map<std::string, int> top1000Occurrences(std::map<std::string, int>& ocorrencias);
     static void sort(std::vector<std::string>& a);
 };
 

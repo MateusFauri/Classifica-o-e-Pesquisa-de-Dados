@@ -35,6 +35,7 @@
 Quick-Sort/*.txt
 
 # Files Radix sort
+Radix-Sort/*.txt
 
 # Files Shell sort
 Shell-Sort/README.txt
