@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 {
     std::vector<std::string> vetor;
     std::map<std::string, int> ocorrencias;
-    std::map<std::string, int> topOcorrencias;
+    std::vector<std::pair<std::string, int>> topOcorrencias;
     std::string linha;
     std::string passagem;
 
@@ -29,6 +29,11 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    /*
+        passagem == 0 -> faz a escrita do arquivo sorted
+        passagem == 1 -> faz a escrita do arquivo counted
+        passagem == 2 -> faz a escrita do arquivo ranked
+    */
     passagem = argv[1];
 
     getline(std::cin, linha);
@@ -43,13 +48,14 @@ int main(int argc, char *argv[])
     else if (passagem.compare("1") == 0)
     {
         for (const auto& par : ocorrencias) {
-            std::cout << par.first << " - " << par.second << std::endl;
+            std::cout << par.first << " " << par.second << std::endl;
         }
     }
     else if (passagem.compare("2") == 0)
     {
         for (const auto& par : topOcorrencias) {
-            std::cout << par.first << " - " << par.second << std::endl;
+            
+            std::cout << par.first << " " << par.second << std::endl;
         }
     }
     else   
@@ -57,4 +63,3 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
