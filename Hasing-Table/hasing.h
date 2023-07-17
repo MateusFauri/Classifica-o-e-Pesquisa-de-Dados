@@ -7,13 +7,14 @@
 #include <math.h>
 #include <stdlib.h>  
 #include <list>
+#include <vector>
 #include <string>
 
 typedef struct
 {
     int sofifa_id;
     std::string name;
-    std::string positions[POSITIONS];
+    std::vector<std::string> positions;
 }Player;
 
 class Hash
@@ -27,6 +28,7 @@ public:
     void insertItem(Player *player);
     void deleteItem(Player *player);
     int hashFunction(std::string word);
+    int searchItem(std::string name);
     void displayHash();
 };
 

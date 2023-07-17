@@ -6,6 +6,7 @@
 
 void tokenize(const char* delim, std::vector<Player> &out) 
 { 
+    std::vector<std::string> positions;
     std::string line;
     Player player;
     char *token; 
@@ -13,29 +14,34 @@ void tokenize(const char* delim, std::vector<Player> &out)
     getline(std::cin, line);
     while(getline(std::cin, line))
     {
-        //std::cout << line << std::endl;
         token = strtok(const_cast<char*>(line.c_str()), delim);
-        while (token != nullptr)
-        {
-            std::cout << std::string(token) << " - ";
-            token = strtok(nullptr, delim);
-        }
-        std::cout << std::endl;
-    }
 
-    /*strtok(const_cast<char*>(line.c_str()), delim)
-    while (token != nullptr) 
-    { 
-        out.push_back(std::string(token)); 
-        token = strtok(nullptr, delim); 
-    } 
-    */
+        if(token != nullptr)
+        {
+            player.sofifa_id = std::stoi(token);
+            token = strtok(nullptr, delim);
+
+            player.name = std::string(token);
+            token = strtok(nullptr, delim);
+
+            while (token != nullptr)
+            {
+                positions.push_back(std::string(token));
+                token = strtok(nullptr, delim);
+            }
+
+            player.positions = positions;
+            out.push_back(player);
+            positions.clear();
+        }
+
+    }
 } 
 
 void print_vector(std::vector<Player> &vetor)
 {
     for(auto player : vetor)
-        std::cout << player.name << std::endl;
+        std::cout << player.name << " - " << player.sofifa_id << std::endl;
 }
 
 int main(int argc, char** argv)
@@ -46,22 +52,26 @@ int main(int argc, char** argv)
         return 1;
     
     tokenize(",", vetor);
-    //print_vector(vetor);
 
-
-    /*
     Hash hash(std::stoi(argv[1]));
 
-    for (auto name : vetor)
-        hash.insertItem(name);
+    for (auto player : vetor)
+        hash.insertItem(&player);
 
     hash.displayHash();
 
+    std::cout << "Procurando por uma pessoa..." << std::endl;
+
+    if(!hash.searchItem(std::string("Lionel Messi Cuccittini")))
+        std::cout << "Não foi achado tal pessoa..." << std::endl;
+
+
+/*
     hash.deleteItem(nome);
 
     std::cout << "Nova Hash" << std::endl;
 
     hash.displayHash();
-    */
+*/
 }
 
