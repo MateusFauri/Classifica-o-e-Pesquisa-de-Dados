@@ -3,45 +3,43 @@
 Hash::Hash(int sizeBucket)
 {
   this->BUCKET = sizeBucket;
-  table = new std::vector<std::list<std::string>>[BUCKET];
+  table = new std::list<Player>[BUCKET];
 }
 
-void Hash::insertItem(std::string word)
+void Hash::insertItem(Player *player)
 {
-  std::vector<std::list<std::string>>::iterator iter;
-  int index = hashFunction(word);
+  int index = hashFunction(player->name);
 
-  (*table)[index].push_back(word);
+  table[index].push_back(*player);
 }
  
-void Hash::deleteItem(std::string word)
+void Hash::deleteItem(Player *player)
 {
-  std::list<std::string>::iterator iter;
-  int index = hashFunction(word);
+  std::list<Player>::iterator iter;
+  int index = hashFunction(player->name);
 
-  for (iter = (*table)[index].begin(); iter != (*table)[index].end(); iter++) 
-    if (*iter == word)
+  for (iter = table[index].begin(); iter != table[index].end(); iter++) 
+    if (iter->sofifa_id == player->sofifa_id)
       break;
   
-  if (iter != (*table)[index].end())
-    (*table)[index].erase(iter);
+  if (iter != table[index].end())
+    table[index].erase(iter);
 }
  
 void Hash::displayHash() 
 {
-  std::list<std::string>::iterator iter;
-  for (int index = 0; index < BUCKET; index++) 
+  std::list<Player>::iterator iter;
+  
+  for (int index = 0; index < this->BUCKET; index++) 
   {
     std::cout << index;
-    iter = (*table)[index].begin();
 
-    for (iter = (*table)[index].begin(); iter != (*table)[index].end(); iter++) 
-      std::cout << " --> " << *iter;
+    for (iter = table[index].begin(); iter != table[index].end(); iter++) 
+      std::cout << " --> " << iter->name;
       
     std::cout << std::endl;
   }
 }
-
 
 int Hash::hashFunction(std::string word) 
 {
@@ -50,5 +48,5 @@ int Hash::hashFunction(std::string word)
   for (int caracter = 0; caracter < word.size(); caracter++)
     value += (word[caracter] + 5 * value) % this->BUCKET;
 
-  return value;
+  return value % this->BUCKET;
 }
