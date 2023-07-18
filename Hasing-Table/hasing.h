@@ -21,15 +21,16 @@ class Hash
 {
     int BUCKET;
     std::list<Player> *table;
-
+    
 public:
     Hash(int sizeBucket);  // Constructor
  
     void insertItem(Player *player);
     void deleteItem(Player *player);
     int hashFunction(std::string word);
-    int searchItem(std::string name);
+    int searchItem(std::string name, int *tests);
     void displayHash();
+    
 };
 
 #endif

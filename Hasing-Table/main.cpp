@@ -44,10 +44,33 @@ void print_vector(std::vector<Player> &vetor)
         std::cout << player.name << " - " << player.sofifa_id << std::endl;
 }
 
+void get_max_and_min(std::vector<int> &vetor)
+{
+    int max, min;
+
+    max = vetor[0];
+    min = vetor[0];
+
+    for(auto element : vetor)
+    {
+        if(element > max)
+            max = element;
+        else if (element < min && element != 0)
+            min = element;
+    }
+
+    std::cout << "MINIMO NUMERO DE TESTES POR NOME ENCONTRADO " << min << std::endl;
+    std::cout << "MAXIMO NUMERO DE TESTES POR NOME ENCONTRADO " << max << std::endl;
+}
+
 int main(int argc, char** argv)
 {
+    std::ifstream file("consulta.txt");
     std::vector<Player> vetor;
-    
+    std::vector<int> tests;
+    std::string name;
+    int test;
+
     if (argc != 2)
         return 1;
     
@@ -60,18 +83,19 @@ int main(int argc, char** argv)
 
     hash.displayHash();
 
-    std::cout << "Procurando por uma pessoa..." << std::endl;
+    while(getline(file, name))
+    {
+        if(!hash.searchItem(name, &test))
+        {
+            std::cout << name << " MISS" << std::endl;
+            test=0;
+        }
+        else
+            std::cout << name << " HIT " << test <<  std::endl;
 
-    if(!hash.searchItem(std::string("Lionel Messi Cuccittini")))
-        std::cout << "Não foi achado tal pessoa..." << std::endl;
+        tests.push_back(test);
+    }
 
-
-/*
-    hash.deleteItem(nome);
-
-    std::cout << "Nova Hash" << std::endl;
-
-    hash.displayHash();
-*/
+    get_max_and_min(tests);
 }
 

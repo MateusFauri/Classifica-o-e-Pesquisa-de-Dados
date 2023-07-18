@@ -41,23 +41,19 @@ void Hash::displayHash()
   }
 }
 
-int Hash::searchItem(std::string name) 
+int Hash::searchItem(std::string name, int *tests) 
 {
   std::list<Player>::iterator iter;
   int index = hashFunction(name);
+  *tests = 1;
   
   for (iter = table[index].begin(); iter != table[index].end(); iter++) 
+  {
     if(iter->name.compare(name) == 0 )
-    {
-      std::cout << iter->sofifa_id << "-" << iter->name << "-";
-      for(auto position : iter->positions)
-        std::cout << position << " ";
-      
-      std::cout << std::endl;
-
       return 1;
-    }
-
+      
+    (*tests)++;
+  }
   return 0;      
 }
 
