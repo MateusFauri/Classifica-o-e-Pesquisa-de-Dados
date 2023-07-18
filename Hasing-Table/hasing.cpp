@@ -6,26 +6,49 @@ Hash::Hash(int sizeBucket)
   table = new std::list<Player>[BUCKET];
 }
 
+Hash::~Hash()
+{
+  
+}
+
 void Hash::insertItem(Player *player)
 {
-  int index = hashFunction(player->name);
+  int index = hashFunction(player->sofifa_id);
 
   table[index].push_back(*player);
 }
- 
-void Hash::deleteItem(Player *player)
+
+int Hash::searchItem(int id, int *tests) 
 {
   std::list<Player>::iterator iter;
-  int index = hashFunction(player->name);
-
-  for (iter = table[index].begin(); iter != table[index].end(); iter++) 
-    if (iter->sofifa_id == player->sofifa_id)
-      break;
+  int index = hashFunction(id);
+  *tests = 1;
   
-  if (iter != table[index].end())
-    table[index].erase(iter);
+  for (iter = table[index].begin(); iter != table[index].end(); iter++) 
+  {
+    if(iter->sofifa_id == id )
+      return 1;
+      
+    (*tests)++;
+  }
+  return 0;      
 }
- 
+
+int Hash::hashFunction(int id) 
+{
+  return id % this->BUCKET;
+}
+
+int Hash::hashFunctionString(std::string word) 
+{
+  int value = 0;
+
+  for (int caracter = 0; caracter < word.size(); caracter++)
+    value += (word[caracter] + 5 * value) % this->BUCKET;
+
+  return value % this->BUCKET;
+}
+
 void Hash::displayHash() 
 {
   std::list<Player>::iterator iter;
@@ -41,28 +64,16 @@ void Hash::displayHash()
   }
 }
 
-int Hash::searchItem(std::string name, int *tests) 
+
+void Hash::deleteItem(Player *player)
 {
   std::list<Player>::iterator iter;
-  int index = hashFunction(name);
-  *tests = 1;
-  
+  int index = hashFunction(player->sofifa_id);
+
   for (iter = table[index].begin(); iter != table[index].end(); iter++) 
-  {
-    if(iter->name.compare(name) == 0 )
-      return 1;
-      
-    (*tests)++;
-  }
-  return 0;      
-}
-
-int Hash::hashFunction(std::string word) 
-{
-  int value = 0;
-
-  for (int caracter = 0; caracter < word.size(); caracter++)
-    value += (word[caracter] + 5 * value) % this->BUCKET;
-
-  return value % this->BUCKET;
+    if (iter->sofifa_id == player->sofifa_id)
+      break;
+  
+  if (iter != table[index].end())
+    table[index].erase(iter);
 }

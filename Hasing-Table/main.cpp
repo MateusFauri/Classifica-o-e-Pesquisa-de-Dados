@@ -65,10 +65,10 @@ void get_max_and_min(std::vector<int> &vetor)
 
 int main(int argc, char** argv)
 {
-    std::ifstream file("consulta.txt");
+    std::ifstream file("consultas-fifa.txt");
     std::vector<Player> vetor;
     std::vector<int> tests;
-    std::string name;
+    std::string id;
     int test;
 
     if (argc != 2)
@@ -83,15 +83,15 @@ int main(int argc, char** argv)
 
     hash.displayHash();
 
-    while(getline(file, name))
+    while(getline(file, id))
     {
-        if(!hash.searchItem(name, &test))
+        if(!hash.searchItem(std::stoi(id), &test))
         {
-            std::cout << name << " MISS" << std::endl;
+            std::cout << std::stoi(id) << " MISS" << std::endl;
             test=0;
         }
         else
-            std::cout << name << " HIT " << test <<  std::endl;
+            std::cout << id << " HIT " << test <<  std::endl;
 
         tests.push_back(test);
     }

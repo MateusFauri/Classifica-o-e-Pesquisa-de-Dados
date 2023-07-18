@@ -23,14 +23,15 @@ class Hash
     std::list<Player> *table;
     
 public:
-    Hash(int sizeBucket);  // Constructor
+    Hash(int sizeBucket); 
+    ~Hash();
  
     void insertItem(Player *player);
     void deleteItem(Player *player);
-    int hashFunction(std::string word);
-    int searchItem(std::string name, int *tests);
+    int hashFunction(int id);
+    int searchItem(int id, int *tests);
+    int hashFunctionString(std::string word);
     void displayHash();
-    
 };
 
 #endif
