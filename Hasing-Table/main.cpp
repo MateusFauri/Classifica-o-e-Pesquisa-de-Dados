@@ -46,21 +46,28 @@ void print_vector(std::vector<Player> &vetor)
 
 void get_max_and_min(std::vector<int> &vetor)
 {
-    int max, min;
+    int max, min, sum, tamReal;
 
     max = vetor[0];
     min = vetor[0];
+    sum = tamReal = 0;
 
-    for(auto element : vetor)
+    for(auto &element : vetor)
     {
         if(element > max)
             max = element;
         else if (element < min && element != 0)
             min = element;
+        
+        if(element != 0)
+            tamReal++;
+        sum += element;
     }
 
     std::cout << "MINIMO NUMERO DE TESTES POR NOME ENCONTRADO " << min << std::endl;
     std::cout << "MAXIMO NUMERO DE TESTES POR NOME ENCONTRADO " << max << std::endl;
+    std::cout << "MEDIA NUMERO DE TESTES NOME ENCONTRADO " << (float) sum/tamReal << std::endl;
+    std::cout << "MEDIA " << (float) sum / vetor.size() << std::endl;
 }
 
 int main(int argc, char** argv)
@@ -69,19 +76,30 @@ int main(int argc, char** argv)
     std::vector<Player> vetor;
     std::vector<int> tests;
     std::string id;
-    int test;
+    int test, buckets;
 
     if (argc != 2)
         return 1;
-    
+
+    buckets = std::stoi(argv[1]);
+
     tokenize(",", vetor);
 
-    Hash hash(std::stoi(argv[1]));
+    Hash hash(buckets);
 
-    for (auto player : vetor)
+    for (auto &player : vetor)
         hash.insertItem(&player);
 
-    hash.displayHash();
+    //hash.displayHash();
+
+    hash.sizeListsHash();
+
+    std::cout << "NUMERO DE ENTRADAS DA TABELA USADAS " << buckets - hash.emptyLists << std::endl;
+    std::cout << "NUMERO DE ENTRADAS DA TABELA VAZIAS " << hash.emptyLists << std::endl;
+    std::cout << "TAXA DE OCUPACAO " << (float) (buckets - hash.emptyLists) / buckets << std::endl;
+    std::cout << "MINIMO TAMANHO DE LISTA " << hash.minSizeList <<std::endl;
+    std::cout << "MAXIMO TAMANHO DE LISTA " << hash.maxSizeList <<std::endl;
+    std::cout << "MEDIO TAMANHO DE LISTA " << hash.totalJogadores / (buckets - hash.emptyLists)<< std::endl;
 
     while(getline(file, id))
     {

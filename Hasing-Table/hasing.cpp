@@ -3,35 +3,63 @@
 Hash::Hash(int sizeBucket)
 {
   this->BUCKET = sizeBucket;
+  this->emptyLists = 0;
+  this->totalJogadores = 0;
   table = new std::list<Player>[BUCKET];
 }
 
-Hash::~Hash()
-{
-  
-}
+Hash::~Hash() {}
 
 void Hash::insertItem(Player *player)
 {
   int index = hashFunction(player->sofifa_id);
 
   table[index].push_back(*player);
+  this->totalJogadores++;
 }
 
-int Hash::searchItem(int id, int *tests) 
+int Hash::searchItem(int id, int *colisions) 
 {
   std::list<Player>::iterator iter;
   int index = hashFunction(id);
-  *tests = 1;
+  *colisions = 1;
   
   for (iter = table[index].begin(); iter != table[index].end(); iter++) 
   {
     if(iter->sofifa_id == id )
       return 1;
       
-    (*tests)++;
+    (*colisions)++;
   }
+
   return 0;      
+}
+
+void Hash::sizeListsHash()
+{
+  int sum;
+
+  for(int index = 0; index < this->BUCKET; index++)
+  {
+    sum = 0;
+    if(table[index].empty())
+      this->emptyLists++;
+    else
+    {
+      for(auto &list : table[index])
+        sum++;
+
+      if(index != 0)
+      {
+        if(sum < this->minSizeList)
+          this->minSizeList = sum;
+        if(sum > this->maxSizeList)
+          this->maxSizeList = sum;
+      }
+      else
+        this->minSizeList = this->maxSizeList = sum;
+    }
+  }
 }
 
 int Hash::hashFunction(int id) 
