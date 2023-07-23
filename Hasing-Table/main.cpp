@@ -46,11 +46,11 @@ void print_vector(std::vector<Player> &vetor)
 
 void get_max_and_min(std::vector<int> &vetor)
 {
-    int max, min, sum, tamReal;
+    int max, min, sumElements, sizeNotEmpty;
 
     max = vetor[0];
     min = vetor[0];
-    sum = tamReal = 0;
+    sumElements = sizeNotEmpty = 0;
 
     for(auto &element : vetor)
     {
@@ -60,14 +60,14 @@ void get_max_and_min(std::vector<int> &vetor)
             min = element;
         
         if(element != 0)
-            tamReal++;
-        sum += element;
+            sizeNotEmpty++;
+        sumElements += element;
     }
 
     std::cout << "MINIMO NUMERO DE TESTES POR NOME ENCONTRADO " << min << std::endl;
     std::cout << "MAXIMO NUMERO DE TESTES POR NOME ENCONTRADO " << max << std::endl;
-    std::cout << "MEDIA NUMERO DE TESTES NOME ENCONTRADO " << (float) sum/tamReal << std::endl;
-    std::cout << "MEDIA " << (float) sum / vetor.size() << std::endl;
+    std::cout << "MEDIA NUMERO DE TESTES NOME ENCONTRADO " << (float) sumElements/sizeNotEmpty << std::endl;
+    std::cout << "MEDIA " << (float) sumElements / vetor.size() << std::endl;
 }
 
 int main(int argc, char** argv)
@@ -92,8 +92,8 @@ int main(int argc, char** argv)
 
     //hash.displayHash();
 
+    std::cout << "PARTE1: ESTATISTICAS DA TABELA HASH" << std::endl;
     hash.sizeListsHash();
-
     std::cout << "NUMERO DE ENTRADAS DA TABELA USADAS " << buckets - hash.emptyLists << std::endl;
     std::cout << "NUMERO DE ENTRADAS DA TABELA VAZIAS " << hash.emptyLists << std::endl;
     std::cout << "TAXA DE OCUPACAO " << (float) (buckets - hash.emptyLists) / buckets << std::endl;
@@ -101,6 +101,8 @@ int main(int argc, char** argv)
     std::cout << "MAXIMO TAMANHO DE LISTA " << hash.maxSizeList <<std::endl;
     std::cout << "MEDIO TAMANHO DE LISTA " << hash.totalJogadores / (buckets - hash.emptyLists)<< std::endl;
 
+    std::cout << std::endl;
+    std::cout << "PARTE 2: ESTATISTICAS DAS CONSULTAS"<< std::endl;
     while(getline(file, id))
     {
         if(!hash.searchItem(std::stoi(id), &test))
@@ -113,7 +115,6 @@ int main(int argc, char** argv)
 
         tests.push_back(test);
     }
-
     get_max_and_min(tests);
 }
 

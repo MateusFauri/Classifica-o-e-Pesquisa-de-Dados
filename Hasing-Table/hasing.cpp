@@ -42,8 +42,13 @@ void Hash::sizeListsHash()
   for(int index = 0; index < this->BUCKET; index++)
   {
     sum = 0;
+
     if(table[index].empty())
+    {
       this->emptyLists++;
+      if(index == 0)
+        this->minSizeList = this->maxSizeList = 0;
+    }
     else
     {
       for(auto &list : table[index])
@@ -91,7 +96,6 @@ void Hash::displayHash()
     std::cout << std::endl;
   }
 }
-
 
 void Hash::deleteItem(Player *player)
 {
